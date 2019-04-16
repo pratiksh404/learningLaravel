@@ -41,10 +41,10 @@
     <br>
     <button type="submit" class="btn btn-primary btn-block p-2">Add Customer</button>
 </form> --}}
-
-<a href="/customers"><button class="btn btn-primary">Go Back</button></a>
-
 <div class="container bootstrap snippet">
+<a href="/customers"><button class="btn btn-primary">Go Back</button></a>
+<form action="/customers/{{$customer->id}}" class="form-group" method="POST" enctype="multipart/form-data">
+
 
 
             <div class="row">
@@ -56,10 +56,14 @@
                       
         
               <div class="text-center">
-                <img src="{{asset('img/siteImage/profiledefault.png')}}" class="avatar img-circle img-thumbnail" alt="avatar">
+                @if($customer->image)
+			<img src="{{asset('storage/'.$customer->image)}}" class="avatar img-circle img-thumbnail" alt="avatar">
+			@else
+			<img src="{{asset('img/siteImage/profiledefault.png')}}" class="avatar img-circle img-thumbnail" alt="avatar">
+			@endif
                 <hr>
                 <h6>Upload a different photo...</h6>
-                <input type="file" class="text-center center-block file-upload">
+                <input type="file" class="text-center center-block file-upload" name="image">
               </div><br>
         
                        
@@ -87,7 +91,7 @@
                   <div class="tab-content">
                     <div class="tab-pane active" id="home">
                         <hr>
-                        <form action="/customers/{{$customer->id}}" class="form-group" method="POST">
+                        
                             @method('PATCH')
                         @csrf
                             

@@ -45,6 +45,7 @@ class CustomersController extends Controller
         $customer->active = request('active');
         $customer->save(); */
 		$customer = Customer::create($this->validateRequest());
+		$this->storeImage($customer);
 		event(new NewCustomerRegisteredEvent($customer));
 
 
@@ -93,6 +94,8 @@ class CustomersController extends Controller
 
 		$customer->update($this->validateRequest());
 
+		$this->storeImage($customer);
+
 		/* this (private) method  */
 
 		return redirect('customers/' . $customer->id)->with('message', 'User Updated');
@@ -107,13 +110,30 @@ class CustomersController extends Controller
 
 	private function validateRequest()
 	{
-		return request()->validate([
+		$validateData = request()->validate([
 			'name' => 'required|min:3|max:30',
 			'email' => 'required|email',
 			'phone' => 'max:10',
 			'contact' => 'required|max:50',
 			'active' => 'required',
 			'company_id' => 'required',
-		]);
+			'image' => 'sometimes |file|image|max:10000', 
+		]); 
+
+			if (request()->hasFile('image')) {
+				request()->validate([
+					'image' => 'file|image|max:10000',
+
+				]);
+			
+		}
+		return $validateData;
+	}
+	private function storeImage($customer){
+if(request()->has('image')){
+$customer->update([
+	'image' => request()->image->store('uploads','public'),
+]);
+}
 	}
 }

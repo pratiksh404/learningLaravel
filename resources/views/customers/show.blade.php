@@ -11,7 +11,11 @@
                   
     
           <div class="text-center">
-            <img src="{{asset('img/siteImage/profiledefault.png')}}" class="avatar img-circle img-thumbnail" alt="avatar">
+			@if($customer->image)
+			<img src="{{asset('storage/'.$customer->image)}}" class="avatar img-circle img-thumbnail" alt="avatar">
+			@else
+			<img src="{{asset('img/siteImage/profiledefault.png')}}" class="avatar img-circle img-thumbnail" alt="avatar">
+			@endif
             <hr>
            
           </div><br>

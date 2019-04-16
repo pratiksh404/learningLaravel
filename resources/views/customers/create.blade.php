@@ -43,7 +43,7 @@
 
 <div class="container bootstrap snippet">
         <a href="/customers"><button class="btn btn-primary">Go Back</button></a>
-        <form action="/customers" class="form-group" method="POST">
+        <form action="/customers" class="form-group" method="POST" enctype="multipart/form-data">
             <div class="row">
                   <div class="col-sm-10"><h1>Customer</h1></div>
                
@@ -56,7 +56,7 @@
                 <img src="{{asset('img/siteImage/profiledefault.png')}}" class="avatar img-circle img-thumbnail" alt="avatar">
                 <hr>
                 <h6>Upload a different photo...</h6>
-                <input type="file" class="text-center center-block file-upload">
+                <input type="file" class="text-center center-block file-upload " name="image">
               </div><br>
         
                        
